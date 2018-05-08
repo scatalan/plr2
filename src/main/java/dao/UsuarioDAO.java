@@ -24,22 +24,25 @@ public class UsuarioDAO {
     /**
      * Permite validar si usuario es valido o no
      *
-     * @param u Usuario a validar
+     * @param username
+     * @param password
      * @return
      */
-    public static boolean validar(Usuario u) {
+    public static Usuario validar(String username, String password) {
         Connection con = null;
         PreparedStatement ps = null;
+        Usuario u;
 
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("Select * from usuario where email = ? and password = md5(?)");
-            ps.setString(1, u.getEmail());
-            ps.setString(2, u.getPassword());
+            ps.setString(1, username);
+            ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                u = new Usuario();
                 u.setNombre(rs.getString("nombre"));
                 u.setCargo(rs.getString("cargo"));
                 u.setTelefono(rs.getString("telefono"));
@@ -49,15 +52,15 @@ public class UsuarioDAO {
                 ed.cargarEmpresa(e);
                 u.setEmpresa(e);
                 u.setEsAdmin(rs.getInt("esAdmin"));
-                return true;
+                return u;
             }
         } catch (SQLException ex) {
             System.out.println("Login error -->" + ex.getMessage());
-            return false;
+            return null;
         } finally {
             DataConnect.close(con);
         }
-        return false;
+        return null;
     }
 
     public boolean addUsuario(Usuario u) {

@@ -1,5 +1,6 @@
-package com.journaldev.jsf.filter;
+package filter;
 
+import beans.LoginBean;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,42 +12,58 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@WebFilter(filterName = "AuthFilter", urlPatterns = { "*.xhtml" })
+@WebFilter(filterName = "AuthFilter", urlPatterns = {"/secured/*"})
 public class AuthorizationFilter implements Filter {
 
-	public AuthorizationFilter() {
-	}
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationFilter.class);
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
+    public static final String LOGIN_PAGE = "/login.xhtml";
 
-	}
+    public AuthorizationFilter() {
+    }
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
-		try {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        LOGGER.debug("loginFilter initialized");
 
-			HttpServletRequest reqt = (HttpServletRequest) request;
-			HttpServletResponse resp = (HttpServletResponse) response;
-			HttpSession ses = reqt.getSession(false);
+    }
 
-			String reqURI = reqt.getRequestURI();
-			if (reqURI.indexOf("/login.xhtml") >= 0
-					|| (ses != null && ses.getAttribute("username") != null)
-					|| reqURI.indexOf("/public/") >= 0
-					|| reqURI.contains("javax.faces.resource"))
-				chain.doFilter(request, response);
-			else
-				resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+        try {
 
-	@Override
-	public void destroy() {
+            HttpServletRequest reqt = (HttpServletRequest) request;
+            HttpServletResponse resp = (HttpServletResponse) response;
+            HttpSession ses = reqt.getSession(false);
+            LoginBean loginbean = (LoginBean) reqt.getSession().getAttribute("loginBean");
+            
 
-	}
+            if (loginbean != null) {
+                if (loginbean.isLoggedIn()) {
+                    LOGGER.debug("user is logged in");
+                    // user is logged in, continue request
+                    chain.doFilter(reqt, resp);
+                } else {
+                    LOGGER.debug("user is not logged in");
+                    // user is not logged in, redirect to login page
+                    resp.sendRedirect(reqt.getContextPath() + LOGIN_PAGE);
+                }
+            } else {
+                LOGGER.debug("userManager not found");
+                // user is not logged in, redirect to login page
+                resp.sendRedirect(reqt.getContextPath() + LOGIN_PAGE);
+            }
+        } catch (IOException e) {
+            LOGGER.error("error en AuthorizationFilter " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void destroy() {
+
+    }
 }

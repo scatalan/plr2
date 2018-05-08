@@ -7,8 +7,11 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h3>Hola #{loginBean.user.nombre}</h3>
+        <h3>Hola #{loginBean.currentUser.nombre}</h3>
         <h:form id="tabMenu">
+            
+                  <p:commandButton value="Logout" action="#{loginBean.logout()}" />
+            
             <p:tabView >
                 <p:tab title="Usuarios" >
                     <h:form id="tabUsuarios">
