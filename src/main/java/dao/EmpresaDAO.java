@@ -47,5 +47,31 @@ public class EmpresaDAO {
         return false;
 
     }
+    
+    public boolean addEmpresa(Empresa e) {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = DataConnect.getConnection();
+            ps = con.prepareStatement("INSERT INTO empresa(nombre, tipo, "
+                    + "direccion, email, codpostal) VALUES (?,?,?,?,?);");
+            ps.setString(1, e.getNombre());
+            ps.setString(2, e.getTipo());
+            ps.setString(3, e.getDireccion());
+            ps.setString(4, e.getEmail());
+            ps.setString(5, e.getCodPostal());
+            int res = ps.executeUpdate();
+            
+            
+            return res > 0;
+
+        } catch (SQLException ex) {
+            System.out.println("Error insertando empresa -->" + ex.getMessage());
+            return false;
+
+        }
+
+    }
 
 }

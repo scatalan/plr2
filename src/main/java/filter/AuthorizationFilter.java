@@ -15,19 +15,16 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebFilter(filterName = "AuthFilter", urlPatterns = {"/secured/*"})
 public class AuthorizationFilter implements Filter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationFilter.class);
 
-    public static final String LOGIN_PAGE = "/login.xhtml";
+    public static final String LOGIN_PAGE = "/faces/login.xhtml";
 
-    public AuthorizationFilter() {
-    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        LOGGER.debug("loginFilter initialized");
+        LOGGER.debug("AuthorizationFilter initialized");
 
     }
 
@@ -53,7 +50,7 @@ public class AuthorizationFilter implements Filter {
                     resp.sendRedirect(reqt.getContextPath() + LOGIN_PAGE);
                 }
             } else {
-                LOGGER.debug("userManager not found");
+                LOGGER.debug("loginBean not found");
                 // user is not logged in, redirect to login page
                 resp.sendRedirect(reqt.getContextPath() + LOGIN_PAGE);
             }

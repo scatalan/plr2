@@ -23,12 +23,12 @@ public class LoginBean implements Serializable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Usuario.class);
 
-    public static final String HOME_PAGE_REDIRECT = "/secured/home.xhtml?faces-redirect=true";
-    public static final String LOGOUT_PAGE_REDIRECT = "/logout.xhtml?faces-redirect=true";
+    public static final String HOME_PAGE_REDIRECT = "/secured/main.xhtml?faces-redirect=true";
+    public static final String LOGOUT_PAGE_REDIRECT = "/faces/logout.xhtml?faces-redirect=true";
 
     private Usuario currentUser;
-    private String username;
-    private String password;
+    private String username = "sebastian.catalan@gmail.com";
+    private String password = "252525";
 
     //validate login
     public String validateUsernamePassword() {
