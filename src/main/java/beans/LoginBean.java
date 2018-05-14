@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import dao.UsuarioDAO;
 import entidades.Usuario;
+import java.util.Locale;
+import javax.faces.component.UIViewRoot;
 import util.SessionUtils;
 
 @ManagedBean
@@ -29,6 +31,7 @@ public class LoginBean implements Serializable {
     private Usuario currentUser;
     private String username = "sebastian.catalan@gmail.com";
     private String password = "252525";
+    private String idioma = "es";
 
     //validate login
     public String validateUsernamePassword() {
@@ -38,6 +41,10 @@ public class LoginBean implements Serializable {
             session.setAttribute("email", currentUser.getEmail());
             session.setAttribute("nombre", currentUser.getNombre());
             LOGGER.info("login successful for '{}'", username);
+            
+            /* Setear el idioma del usuario */
+            idioma = currentUser.getIdioma();
+            
             return HOME_PAGE_REDIRECT;
         } else {
             FacesContext.getCurrentInstance().addMessage(
@@ -97,6 +104,15 @@ public class LoginBean implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+    
     
     
 

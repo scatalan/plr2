@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>PLR - <ui:insert name="title" /></title>
+        <f:view locale="#{loginBean.idioma}"/> 
+
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/stylesheets/layout.css" > </link> 
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/stylesheets/estilos.css" > </link> 
+
+
+    </h:head>
+    <h:body>
+        <div class="layout-wrapper layout-menu-static">
+            <div class="layout-topbar">
+                <div class="topbar-content">
+
+                    <a href="/harmony/dashboard.xhtml" class="logo-container">
+                        <img id="j_idt13" src="/harmony/javax.faces.resource/images/harmony-logo.png.xhtml?ln=harmony-layout" alt=""/>
+                        <span class="app-name">Sistema PLR</span>
+                    </a>
+
+
+
+                    <a id="topbar-profile-menu-button" href="#">
+                        <img id="j_idt16" src="/harmony/javax.faces.resource/images/avatar.png.xhtml?ln=harmony-layout" alt="" class="topbar-profile"/>
+                        <span>#{loginBean.currentUser.nombre}</span>
+                    </a>
+
+
+
+                </div>
+            </div>
+
+            <div class="layout-sidebar">
+                <div class="nano has-scrollbar">
+                    <div class="nano-content menu-scroll-content" style="margin-right: -17px;">
+                        
+                            
+                            <ul id="menuform:j_idt41" class="layout-menu">
+                                <li id="menuform:om_dashboard" role="menuitem">
+                                    <a href="/harmony/dashboard.xhtml">
+                                        <i class="fa fa-fw fa-dashboard fa-fw"></i>
+                                        <span>Usuarios</span>
+                                    </a>
+                                </li>
+                                <li id="menuform:om_dashboard" role="menuitem">
+                                    <a href="/harmony/dashboard.xhtml">
+                                        <i class="fa fa-fw fa-dashboard fa-fw"></i>
+                                        <span>Documentos</span>
+                                    </a>
+                                </li>
+                                <li id="menuform:om_dashboard" role="menuitem">
+                                    <a href="/harmony/dashboard.xhtml">
+                                        <i class="fa fa-fw fa-dashboard fa-fw"></i>
+                                        <span>Empresas</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+
+        </div>
+
+        <ui:insert name="content">
+
+        </ui:insert>
+    </h:body>
+</html>
+

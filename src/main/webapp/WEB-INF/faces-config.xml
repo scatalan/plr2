@@ -7,6 +7,21 @@
     <welcome-file-list>
         <welcome-file>/faces/login.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <application>
+        
+        
+        <resource-bundle>
+            <base-name>idiomas.texto</base-name>
+            <var>txt</var>
+        </resource-bundle>
+        
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>es</supported-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+    </application>
             
 
 </faces-config>

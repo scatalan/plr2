@@ -21,6 +21,7 @@ public class Usuario implements Serializable{
     private String bemail;
     private Empresa empresa;
     private int    esAdmin;
+    private String idioma;
 
     public String getEmail() {
         return email;
@@ -90,6 +91,16 @@ public class Usuario implements Serializable{
         email = "";
         password = "";
     }
+
+    public String getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+    
+    
     
     
     

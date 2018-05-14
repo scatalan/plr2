@@ -52,6 +52,7 @@ public class UsuarioDAO {
                 ed.cargarEmpresa(e);
                 u.setEmpresa(e);
                 u.setEsAdmin(rs.getInt("esAdmin"));
+                u.setIdioma(rs.getString("idioma"));
                 return u;
             }
         } catch (SQLException ex) {
@@ -70,7 +71,7 @@ public class UsuarioDAO {
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("INSERT INTO usuario(email, password, "
-                    + "nombre, cargo, telefono, bemail, idEmpresa, esAdmin) VALUES (?,md5(?),?,?,?,?,?,?);");
+                    + "nombre, cargo, telefono, bemail, idEmpresa, esAdmin, idioma) VALUES (?,md5(?),?,?,?,?,?,?,?);");
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getPassword());
             ps.setString(3, u.getNombre());
@@ -78,6 +79,7 @@ public class UsuarioDAO {
             ps.setString(5, u.getTelefono());
             ps.setInt(7, u.getEmpresa().getIdEmpresa());
             ps.setInt(8, u.getEsAdmin());
+            ps.setString(9, u.getIdioma());
             int res = ps.executeUpdate();
             return res > 0;
 

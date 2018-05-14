@@ -1,55 +1,70 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>PLR</title>
+        <f:view locale="#{loginBean.idioma}"/>
     </h:head>
     <h:body>
-        <h3>Hola #{loginBean.currentUser.nombre}</h3>
-        <h:form id="tabMenu">
-            
-                  <p:commandButton value="Logout" action="#{loginBean.logout()}" />
-            
-            <p:tabView >
-                <p:tab title="Usuarios" >
-                    <h:form id="tabUsuarios">
-                        <p:commandButton value="Actualizar" actionListener="#{usuariosBean.actualizaUsuarios()}" update="tabUsuarios" />
-                        <p:dataTable var="user" value="#{usuariosBean.usuarios}">
-                            <p:column headerText="E-Mail">1
-                                <h:outputText value="#{user.email}" />
-                            </p:column>
 
-                            <p:column headerText="Nombre">
-                                <h:outputText value="#{user.nombre}" />
-                            </p:column>
+        <ui:composition template="/WEB-INF/facelets/templates/plantilla.xhtml">
+            <ui:define name="title">
+                <h:outputText value="Principal " />
+            </ui:define>
+            <ui:define name="content">
+                <h3>#{txt.main_welcome} #{loginBean.currentUser.nombre}</h3>
+                <h:form id="tabMenu">
 
-                            <p:column headerText="Cargo">
-                                <h:outputText value="#{user.cargo}" />
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
+                    <p:commandButton value="Logout" action="#{loginBean.logout()}" />
 
-                </p:tab>
-                <p:tab title="Documentos">
-                    <p:panel>
-                        <p:row>
-                            <p:column><h:outputText value="Listado de documentos"/></p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
 
-                            </p:column>
-                        </p:row>
-                    </p:panel>
+                    <p:tabView >
+                        <p:tab title="Usuarios" >
+                            <h:form id="tabUsuarios">
+                                <p:commandButton value="Actualizar" actionListener="#{usuariosBean.actualizaUsuarios()}" update="tabUsuarios" />
+                                <p:dataTable var="user" value="#{usuariosBean.usuarios}">
+                                    <p:column headerText="E-Mail">1
+                                        <h:outputText value="#{user.email}" />
+                                    </p:column>
 
-                </p:tab>                
-                <p:tab title="Empresas">
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{user.nombre}" />
+                                    </p:column>
 
-                </p:tab>>
-            </p:tabView>
-        </h:form>
+                                    <p:column headerText="Cargo">
+                                        <h:outputText value="#{user.cargo}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+
+                        </p:tab>
+                        <p:tab title="Documentos">
+                            <p:panel>
+                                <p:row>
+                                    <p:column><h:outputText value="Listado de documentos"/></p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+
+                                    </p:column>
+                                </p:row>
+                            </p:panel>
+
+                        </p:tab>                
+                        <p:tab title="Empresas">
+
+                        </p:tab>>
+                    </p:tabView>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+
     </h:body>
 </html>
 
